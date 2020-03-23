@@ -954,8 +954,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var modals = function modals() {
+  var btnPressed = false;
+
   function bindModal(triggerSelector, modalSelector, closeSelector) {
-    var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'true';
+    var destroy = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     var trigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector),
         close = document.querySelector(closeSelector),
@@ -967,8 +969,14 @@ var modals = function modals() {
           e.preventDefault();
         }
 
+        if (destroy) {
+          item.remove();
+        }
+
+        btnPressed = true;
         windows.forEach(function (item) {
           item.style.display = 'none';
+          item.classList.add('animated', 'fadeIn');
         });
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
@@ -981,7 +989,7 @@ var modals = function modals() {
       document.body.style.marginRight = "0px";
     });
     modal.addEventListener('click', function (e) {
-      if (e.target === modal && closeClickOverlay) {
+      if (e.target === modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
         document.body.style.marginRight = "0px";
@@ -1001,6 +1009,7 @@ var modals = function modals() {
       if (!display) {
         document.querySelector(selector).style.display = 'block';
         document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = "".concat(scroll, "px");
       }
     }, time);
   }
@@ -1016,8 +1025,18 @@ var modals = function modals() {
     div.remove();
   }
 
+  function openByScroll(selector) {
+    window.addEventListener('scroll', function () {
+      if (!btnPressed && window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+        document.querySelector(selector).click();
+      }
+    });
+  }
+
   bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+  bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
+  openByScroll('.fixed-gift');
   showModalByTime('.popup-consultation', 6000);
 };
 
