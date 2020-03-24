@@ -76,10 +76,6 @@ const modals = () => {
 
       let scrollWidth = div.offsetWidth - div.clientWidth;
       div.remove();
-
-
-
-
    }
 
    function openByScroll(selector) {
