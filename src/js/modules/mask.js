@@ -34,7 +34,7 @@ const mask = (selector) => {
             this.value = '';
          }
       } else {
-         setCursorePosition(this.value,length, this);
+         setCursorePosition(this.value.length, this);
       }
    }
 
