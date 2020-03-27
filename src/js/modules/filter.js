@@ -58,8 +58,6 @@ const filter = () => {
    challengeFunction(btnGuy, markGuy);
    challengeFunction(btnGrandmother);
    challengeFunction(btnGranddad);
-
-
 };
 
 export default filter;
