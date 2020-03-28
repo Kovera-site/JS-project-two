@@ -15,7 +15,7 @@ const scrolling = (upSelector) => {
    //scrolling with raf
 
    let links = document.querySelectorAll('[href^="#"]'),
-       spead = 0.1;
+       spead = 0.3;
       
    links.forEach(link => {
       link.addEventListener('click', function (event) {

@@ -4936,6 +4936,22 @@ var forms = function forms(state) {
       });
     });
   });
+  inputs.forEach(function (item) {
+    item.addEventListener('drop', function (e) {
+      e.preventDefault();
+      var formData2 = new FormData();
+      var api;
+      item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
+      console.log(api);
+      Object(_services_requests__WEBPACK_IMPORTED_MODULE_6__["postData"])(api, formData2).then(function (res) {
+        console.log(res);
+      }).catch(function () {}).finally(function () {
+        clearInputs();
+        console.log('secsesful');
+        setTimeout(function () {}, 2000);
+      });
+    });
+  });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (forms);
@@ -5189,7 +5205,7 @@ var scrolling = function scrolling(upSelector) {
   }); //scrolling with raf
 
   var links = document.querySelectorAll('[href^="#"]'),
-      spead = 0.1;
+      spead = 0.3;
   links.forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();
